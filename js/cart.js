@@ -3,8 +3,35 @@ var cart = {
     hPdt : null,      // html products list
     hItems : null,    // html current cart
     items : {},       // current items in cart
-    iURL : "images/", // product image url folder
-  };
+    iUrl : "img/", // product image url folder
+    products : {
+        123: {
+          name : "Morning Walk",
+          desc : "1hr.",
+          img : "Chris-dog-walking-pic.jpg",
+          price : 20
+        },
+        124: {
+          name : "Moring Walk",
+          desc : "2hr",
+          img : "Chris-dog-walking-pic.jpg",
+          price : 30
+        },
+        125: {
+          name : "Evening Walk",
+          desc : "1hr",
+          img : "dog-walking-evening.jpg",
+          price : 30
+        },
+        126: {
+          name : "Evening Walk",
+          desc : "2hr",
+          img : "dog-walking-evening.jpg",
+          price : 50
+        }
+      },
+
+ 
 
 
 
@@ -18,18 +45,18 @@ save : () => {
   },
   
   // (B2) LOAD CART FROM LOCALSTORAGE
-  load ; () => {
+  load : () => {
     cart.items = localStorage.getItem("cart");
     if (cart.items == null) { cart.items = {}; }
     else { cart.items = JSON.parse(cart.items); }
   },
     
   // (B3) NUKE CART!
-  nuke ; () => { if (confirm("Empty cart?")) {
-    cart.items = {};
-    localStorage.removeItem("cart");
-    cart.list();
-  }}
+//   nuke : () => { if (confirm("Empty cart?")) {
+//     cart.items = {};
+//     localStorage.removeItem("cart");
+//     cart.list();
+//   }},
 
 
 
@@ -49,7 +76,7 @@ init : () => {
     for (let id in cart.products) {
       p = cart.products[id];
       item = template.cloneNode(true);
-      item.querySelector(".p-img").src = cart.iURL + p.img;
+      item.querySelector(".p-img").src = cart.iUrl + p.img;
       item.querySelector(".p-name").textContent = p.name;
       item.querySelector(".p-desc").textContent = p.desc;
       item.querySelector(".p-price").textContent = "$" + p.price.toFixed(2);
@@ -62,7 +89,7 @@ init : () => {
       
     // (C4) LIST CURRENT CART ITEMS
     cart.list();
-  }
+  },
 
 
 
@@ -115,7 +142,7 @@ list : () => {
       item = document.getElementById("template-cart-checkout").content.cloneNode(true);
       cart.hItems.appendChild(item);
     }
-  }
+  },
 
 
 
@@ -128,7 +155,7 @@ add : (id) => {
   },
   
   // (F) CHANGE QUANTITY
-  change ; (pid, qty) => {
+  change : (pid, qty) => {
     // (F1) REMOVE ITEM
     if (qty <= 0) {
       delete cart.items[pid];
@@ -147,14 +174,14 @@ add : (id) => {
   },
     
   // (G) REMOVE ITEM FROM CART
-  remove ; (id) => {
+  remove : (id) => {
     delete cart.items[id];
     cart.save();
     cart.list();
   },
     
   // (H) CHECKOUT
-  checkout ; () => {
+  checkout : () => {
     // SEND DATA TO SERVER
     // CHECKS
     // SEND AN EMAIL
@@ -175,3 +202,6 @@ add : (id) => {
     .catch((err) => { console.error(err); });
     */
   }
+};
+
+  cart.init()
