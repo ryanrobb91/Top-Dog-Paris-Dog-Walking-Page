@@ -158,3 +158,23 @@ textarea::-ms-input-placeholder { /* Microsoft Edge */
     }
 }
 
+#cart-wrap * {
+    font-family: arial, sans-serif;
+    box-sizing: border-box;
+  }
+  #cart-wrap {
+    display: flex;
+    margin: 0 auto;
+    max-width: 1200px;
+  }
+  #cart-products, #cart-items { padding: 10px; }
+  #cart-products { flex-grow: 1; }
+  #cart-items { width: 180px; }
+  input.cart, button.cart {
+    padding: 10px;
+    border: 0;
+    background: #ff4316;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+  }
